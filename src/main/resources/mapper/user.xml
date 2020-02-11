@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cos.blog.repository.UserRepository">
+
+	<select id="findAll" resultType="com.cos.blog.model.user.User">
+		select * from user order by id
+		desc
+	</select>
+
+	<insert id="save">
+		insert into user(username, password, email, role,
+		createDate) values(#{username},#{password},#{email},'USER',now())
+	</insert>
+
+	<select id="findById" resultType="com.cos.blog.model.user.User">
+		select id, username, email,
+		profile, createDate from user where id = #{id}
+	</select>
+
+	<select id="authentication"
+		resultType="com.cos.blog.model.user.User">
+		select * from user where username = #{username}
+	</select>
+
+	<select id="findByUsername" resultType="int">
+		select count(*) from user
+		where username = #{username}
+	</select>
+
+	<select id="findByUsernameAndPassword"
+		resultType="com.cos.blog.model.user.User">
+		select id, username, email, profile from user where
+		username = #{username} and password = #{password}
+	</select>
+
+	<update id="update">
+		update user set password = #{password}, profile =
+		#{profile} where id = #{id}
+	</update>
+
+</mapper>
+
+
+
